@@ -136,7 +136,7 @@ void update(int red, int green, int blue, int white, int backgroundred, int back
     rgb.setPixelColor(10, rgb.Color(red, green, blue));
     tlc.setPixel(181,true);
     tlc.setPixel(180,true);
-    nach();
+    nach(red, green, blue);
   }
   //zehn nach
   if(minute >= 10 && minute < 15){
@@ -152,7 +152,7 @@ void update(int red, int green, int blue, int white, int backgroundred, int back
     rgb.setPixelColor(18, rgb.Color(red, green, blue));
     tlc.setPixel(155,true);
     tlc.setPixel(148,true);
-    nach();
+    nach(red, green, blue);
   }
 
   //viertel nach
@@ -178,7 +178,7 @@ void update(int red, int green, int blue, int white, int backgroundred, int back
     rgb.setPixelColor(32, rgb.Color(red, green, blue));
     tlc.setPixel(192,true);
     tlc.setPixel(193,true);
-    nach();
+    nach(red, green, blue);
   }
     
   //zwanzig nach
@@ -204,7 +204,7 @@ void update(int red, int green, int blue, int white, int backgroundred, int back
     rgb.setPixelColor(11, rgb.Color(red, green, blue));
     tlc.setPixel(186,true);
     tlc.setPixel(187,true);
-    nach();
+    nach(red, green, blue);
   }
    //fünf vor halb
   if(minute >=25 && minute < 30){
@@ -220,7 +220,7 @@ void update(int red, int green, int blue, int white, int backgroundred, int back
     rgb.setPixelColor(10, rgb.Color(red, green, blue));
     tlc.setPixel(181,true);
     tlc.setPixel(180,true);
-    vor();
+    vor(red, green, blue);
     rgb.setPixelColor(44, rgb.Color(red, green, blue));
     tlc.setPixel(104,true);
     tlc.setPixel(103,true);
@@ -265,7 +265,7 @@ void update(int red, int green, int blue, int white, int backgroundred, int back
     rgb.setPixelColor(10, rgb.Color(red, green, blue));
     tlc.setPixel(181,true);
     tlc.setPixel(180,true);
-    nach();
+    nach(red, green, blue);
     rgb.setPixelColor(44, rgb.Color(red, green, blue));
     tlc.setPixel(104,true);
     tlc.setPixel(103,true);
@@ -303,7 +303,7 @@ void update(int red, int green, int blue, int white, int backgroundred, int back
     rgb.setPixelColor(11, rgb.Color(red, green, blue));
     tlc.setPixel(186,true);
     tlc.setPixel(187,true);
-    vor();
+    vor(red, green, blue);
   }
   //viertel vor //dreiviertel
     if(minute >=45 && minute < 50){
@@ -329,7 +329,7 @@ void update(int red, int green, int blue, int white, int backgroundred, int back
       rgb.setPixelColor(32, rgb.Color(red, green, blue));
       tlc.setPixel(192,true);
       tlc.setPixel(193,true);
-      vor();
+      vor(red, green, blue);
 
       /*
       rgb.setPixelColor(22, rgb.Color(red, green, blue));
@@ -382,7 +382,7 @@ void update(int red, int green, int blue, int white, int backgroundred, int back
       rgb.setPixelColor(18, rgb.Color(red, green, blue));
       tlc.setPixel(155,true);
       tlc.setPixel(148,true);
-      vor();
+      vor(red, green, blue);
     }
     
     //fünf vor
@@ -399,14 +399,16 @@ void update(int red, int green, int blue, int white, int backgroundred, int back
       rgb.setPixelColor(10, rgb.Color(red, green, blue));
       tlc.setPixel(181,true);
       tlc.setPixel(180,true);
-      vor();
+      vor(red, green, blue);
 
     }
 
     
     //Ab fünf vor Halb Stunde um 1 erhöhen
     if(minute >= 25){hour++;}
-    if(minute >= 25 && hour == 23){hour = 0;}
+    //if(minute >=25 && hour == 23) war falsch
+    if(hour >= 24){hour = 0;}
+
     switch(hour){
       //ein
       case 1: 
@@ -649,7 +651,7 @@ void update(int red, int green, int blue, int white, int backgroundred, int back
     tlc.show();
 }
 
-void nach(){
+void nach(int red, int green, int blue){
   rgb.setPixelColor(36, rgb.Color(red, green, blue));
   tlc.setPixel(127,true);
   tlc.setPixel(112,true);
@@ -664,7 +666,8 @@ void nach(){
   tlc.setPixel(199,true);
 }
 
-void vor(){
+
+void vor(int red, int green, int blue){
   rgb.setPixelColor(43, rgb.Color(red, green, blue));
   tlc.setPixel(120,true);
   tlc.setPixel(119,true);
@@ -674,4 +677,36 @@ void vor(){
   rgb.setPixelColor(41, rgb.Color(red, green, blue));
   tlc.setPixel(122,true);
   tlc.setPixel(117,true);
+}
+
+
+void onOTAStart() {
+  // Log when OTA has started
+  Serial.println("OTA update started!");
+  // <Add your own code here>
+}
+
+void onOTAProgress(size_t current, size_t final) {
+  // Log every 1 second
+  if (millis() - ota_progress_millis > 1000) {
+    ota_progress_millis = millis();
+    Serial.printf("OTA Progress Current: %u bytes, Final: %u bytes\n", current, final);
+  }
+}
+
+void onOTAEnd(bool success) {
+  // Log when OTA has finished
+  if (success) {
+    Serial.println("OTA update finished successfully!");
+  } else {
+    Serial.println("There was an error during OTA update!");
+  }
+  // <Add your own code here>
+}
+
+
+void syncTime(){
+  configTime("CET-1CEST,M3.5.0,M10.5.0/3", 0, ntpServer1, ntpServer2);//Konfiguriert die Zeit, hier kein Timeoffset und Daylightoffset, da dies später durch die Zeitzone gesetzt wird.
+  delay(300);
+  time(&rawtime);
 }
