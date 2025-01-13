@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Wortuhr</title>
+  <meta charset = "utf-8" name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="/css">
+  <!--<link rel="stylesheet" type="text/css" href="style.css"/>-->
+  <script src="/js"></script>
+  <!--<script src="script.js"</script>-->
+</head>
+<body style = "background-color: #bbbbbb">
+
+  <div class = "topbar" id= "topbar">
+  Wortuhr
+  </div>
+ <!-- <div style="height:1px; background-color:black"></div><!-- Trennlinie -->
+  <div  class = "hintergrundbox">
+  <ul>
+		<li><button class = "button-menu" id = "button-menu-vordergrund" onclick = "vordergrund()" style= "background-color: #007878">Vordergrund</button></li>
+		<li><button class = "button-menu" id = "button-menu-hintergrund" onclick = "hintergrund()">Hintergrund</button></li>
+		<li><button class = "button-menu" id = "button-menu-farbe" onclick = "farbe()">Einfarbig</button></li>
+	</ul>
+	<ul style = "padding-top: 10px">
+		<li><button class = "button-menu" id = "button-menu-regenbogen" onclick = "rainbow()">Regenbogen</button></li>
+		<li><button class = "button-menu" id = "button-menu-animation" onclick = "reeset()">Reset</button></li>
+		<li><button class = "button-menu" id = "button-menu-config" onclick = "config()">Konfiguration</button></li>
+	</ul>
+  </div>
+  
+<div id="farbmischer">
+  <div class = "hintergrundbox">
+  <table style = "width: 100%">
+  <tr>
+	<td style = "width:90%"><input onchange = "syncSlider()" class = "slider slider-red" id = "slider-red" type = "range" min = "0" max = "255" value = "0"></td>
+	<td style = "width:10%"><span id= "redvalue">0</span></td>
+  </tr>
+  <tr>
+	<td style = "width:90%"><input onchange = "syncSlider()" class = "slider slider-green" id = "slider-green" type = "range" min = "0" max = "255" value = "0"></td>
+	<td style = "width:10%"><span id= "greenvalue">0</span></td>
+  </tr>
+  <tr>
+	<td style = "width:90%"><input onchange = "syncSlider()" class = "slider slider-blue" id = "slider-blue" type = "range" min = "0" max = "255" value = "0"></td>
+	<td style = "width:10%"><span id= "bluevalue">0</span></td>
+  </tr>
+  <tr>
+	<td style = "width:90%"><input onchange = "syncWhiteSlider()" class = "slider slider-white" id = "slider-white" type = "range" min = "0" max = "255" value = "0"></td>
+	<td style = "width:10%"><span id= "whitevalue">60</span></td>
+  </tr>
+  </table>
+  </div>
+  
+  <div class = "hintergrundbox">
+    <div class = "vorauswahl" style = "padding-bottom: 10px">
+	<button onclick = "presetRot()" class = "button" style = "background-color: #f00"></button>
+	<button onclick = "presetGruen()" class = "button" style = "background-color: #0f0"></button>
+	<button onclick = "presetBlau()" class = "button" style = "background-color: #00f"></button>
+	<button onclick = "presetWeiß()" class = "button" style = "background-color: white"></button>
+	</div>
+    <div class = "vorauswahl" style = "padding-top: 10px">
+	<button onclick = "presetLila()" class = "button" style = "background-color: #d0f"></button>
+	<button onclick = "presetGelb()" class = "button" style = "background-color: #fd0"></button>
+	<button onclick = "presetTuerkis()" class = "button" style = "background-color: #0ef"></button>
+	<button onclick = "presetSchwarz()" class = "button" style = "background-color: black"></button>
+	</div>
+  </div>
+</div>
+
+<div id = "config" style = "display:none;">
+	<div class = "hintergrundbox" style = "font-size: small;">
+		<div style = "font-size: large;">Helligkeit<br><br></div>
+		Ab
+		<select id="time1">
+			<option value = "25">Select</option>
+			
+			<option value = "1">1</option>
+			<option value = "2">2</option>
+			<option value = "3">3</option>
+			<option value = "4">4</option>
+			<option value = "5">5</option>
+			<option value = "6">6</option>
+			<option value = "7">7</option>
+			<option value = "8">8</option>
+			<option value = "9">9</option>
+			<option value = "10">10</option>
+			<option value = "11">11</option>
+			<option value = "12">12</option>
+			<option value = "13">13</option>
+			<option value = "14">14</option>
+			<option value = "15">15</option>
+			<option value = "16">16</option>
+			<option value = "17">17</option>
+			<option value = "18">18</option>
+			<option value = "19">19</option>
+			<option value = "20">20</option>
+			<option value = "21">21</option>
+			<option value = "22">22</option>
+			<option value = "23">23</option>
+			<option value = "0">24</option>
+		</select> 
+		Uhr 
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Zustand: 
+		<select id="setting1">			
+			<option value = "0">AN</option>
+			<option value = "1">AUS</option>
+			<option value = "2">LDR</option>
+		</select><br><br>
+		
+		
+		Ab
+		<select id="time2">
+			<option value = "25">Select</option>
+			
+			<option value = "1">1</option>
+			<option value = "2">2</option>
+			<option value = "3">3</option>
+			<option value = "4">4</option>
+			<option value = "5">5</option>
+			<option value = "6">6</option>
+			<option value = "7">7</option>
+			<option value = "8">8</option>
+			<option value = "9">9</option>
+			<option value = "10">10</option>
+			<option value = "11">11</option>
+			<option value = "12">12</option>
+			<option value = "13">13</option>
+			<option value = "14">14</option>
+			<option value = "15">15</option>
+			<option value = "16">16</option>
+			<option value = "17">17</option>
+			<option value = "18">18</option>
+			<option value = "19">19</option>
+			<option value = "20">20</option>
+			<option value = "21">21</option>
+			<option value = "22">22</option>
+			<option value = "23">23</option>
+			<option value = "0">24</option>
+		</select> 
+		Uhr 
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Zustand: 
+		<select id="setting2">			
+			<option value = "0">AN</option>
+			<option value = "1">AUS</option>
+			<option value = "2">LDR</option>
+		</select><br><br>
+		
+		
+		Ab
+		<select id="time3">
+			<option value = "25">Select</option>
+			
+			<option value = "1">1</option>
+			<option value = "2">2</option>
+			<option value = "3">3</option>
+			<option value = "4">4</option>
+			<option value = "5">5</option>
+			<option value = "6">6</option>
+			<option value = "7">7</option>
+			<option value = "8">8</option>
+			<option value = "9">9</option>
+			<option value = "10">10</option>
+			<option value = "11">11</option>
+			<option value = "12">12</option>
+			<option value = "13">13</option>
+			<option value = "14">14</option>
+			<option value = "15">15</option>
+			<option value = "16">16</option>
+			<option value = "17">17</option>
+			<option value = "18">18</option>
+			<option value = "19">19</option>
+			<option value = "20">20</option>
+			<option value = "21">21</option>
+			<option value = "22">22</option>
+			<option value = "23">23</option>
+			<option value = "0">24</option>
+		</select> 
+		Uhr
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+		Zustand: 
+		<select id="setting3">			
+			<option value = "0">AN</option>
+			<option value = "1">AUS</option>
+			<option value = "2">LDR</option>
+		</select><br><br>
+		
+		<button class = "button-menu" onclick = "sendconfig()">Senden</button>
+		
+	</div>
+	<div class = "hintergrundbox" >
+		<button class = "button-menu" onclick="settime()">Uhrzeit aktualisieren</button>
+	</div>
+	<div class = "hintergrundbox" >
+		<a href=\update><button class = "button-menu">Softwareupdate</button></a>
+	</div>
+</div>
+</body>
+</html>
